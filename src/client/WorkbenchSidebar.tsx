@@ -42,6 +42,16 @@ function requestSidebarExpand(): void {
   if (button instanceof HTMLButtonElement) button.click()
 }
 
+const COLLAPSED_KEY = 'dsh-better-workbench:sidebar-collapsed'
+
+function readCollapsed(): boolean {
+  try { return typeof localStorage !== 'undefined' && localStorage.getItem(COLLAPSED_KEY) === '1' } catch { return false }
+}
+
+function writeCollapsed(value: boolean): void {
+  try { if (typeof localStorage !== 'undefined') localStorage.setItem(COLLAPSED_KEY, value ? '1' : '0') } catch { /* view preference only */ }
+}
+
 function WorkbenchHomeIcon({ className }: { className?: string }): JSX.Element {
   return (
     <svg
@@ -231,6 +241,7 @@ export function WorkbenchSidebar({ service }: WorkbenchSidebarProps): JSX.Elemen
   const composingRef = useRef(false)
   const [compact, setCompact] = useState(false)
   const [searchExpanded, setSearchExpanded] = useState(false)
+  const [collapsed, setCollapsedState] = useState(readCollapsed)
   const [query, setQuery] = useState('')
   const [orderBy, setOrderBy] = useState<OrderBy>('manual')
   const [draggedId, setDraggedId] = useState<string | null>(null)
@@ -261,6 +272,8 @@ export function WorkbenchSidebar({ service }: WorkbenchSidebarProps): JSX.Elemen
   const renameTrimmed = renameDraft.trim()
   const renameBlocked = busy || renameTrimmed === '' || renameTarget === null
   const normalizedQuery = normalize(query)
+  const listHidden = collapsed && !searchExpanded && normalizedQuery === ''
+  const setCollapsed = (value: boolean): void => { setCollapsedState(value); writeCollapsed(value) }
   const canReorder = orderBy === 'manual' && normalizedQuery === '' && !busy
 
   useEffect(() => {
@@ -481,6 +494,20 @@ export function WorkbenchSidebar({ service }: WorkbenchSidebarProps): JSX.Elemen
     <section ref={section} className="dsh-better-workbench-sidebar-section" aria-label="工作台" aria-busy={busy}>
       <div className="dsh-better-workbench-sidebar-heading">
         <span className={`dsh-better-workbench-sidebar-heading-label${searchExpanded && !compact ? ' is-hidden' : ''}`}>工作台</span>
+        {!searchExpanded && (
+          <button
+            type="button"
+            className="dsh-better-workbench-sidebar-collapse-zone"
+            aria-label={collapsed ? '展开工作台列表' : '折叠工作台列表'}
+            aria-expanded={!collapsed}
+            title={collapsed ? '展开工作台列表' : '折叠工作台列表'}
+            onClick={() => { setCollapsed(!collapsed) }}
+          >
+            <svg className="dsh-better-workbench-sidebar-collapse-chevron" data-collapsed={collapsed} width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+              <path d="m4 6 4 4 4-4" />
+            </svg>
+          </button>
+        )}
         <div ref={searchRoot} className={`dsh-better-workbench-sidebar-search-slot${searchExpanded ? ' is-expanded' : ''}`}>
           <div className="dsh-better-workbench-sidebar-search">
             <Tooltip label="搜索工作台" side="bottom" delayMs={500} disabled={searchExpanded}>
@@ -491,6 +518,7 @@ export function WorkbenchSidebar({ service }: WorkbenchSidebarProps): JSX.Elemen
                 aria-expanded={searchExpanded}
                 onClick={() => {
                   setSearchExpanded(true)
+                  setCollapsed(false)
                   if (compact) requestSidebarExpand()
                 }}
               >
@@ -566,7 +594,7 @@ export function WorkbenchSidebar({ service }: WorkbenchSidebarProps): JSX.Elemen
         </div>
       )}
 
-      <div className="dsh-better-workbench-sidebar-list" aria-label="工作台列表">
+      <div className="dsh-better-workbench-sidebar-list" aria-label="工作台列表" hidden={listHidden}>
         <WorkbenchHomeRow active={snapshot.route.kind === 'workbench-home'} onOpen={() => { service.openHome() }} />
         {instances.map((instance, index) => (
           <WorkbenchRow
@@ -602,10 +630,10 @@ export function WorkbenchSidebar({ service }: WorkbenchSidebarProps): JSX.Elemen
           />
         ))}
       </div>
-      {snapshot.loading && <div className="dsh-better-workbench-sidebar-empty" role="status">正在加载工作台...</div>}
+      {!listHidden && snapshot.loading && <div className="dsh-better-workbench-sidebar-empty" role="status">正在加载工作台...</div>}
       {reordering && <div className="dsh-better-workbench-sidebar-empty" role="status">正在保存排序...</div>}
       {(reorderError ?? snapshot.error) && <div className="dsh-better-workbench-rename-error" role="alert">{reorderError ?? snapshot.error}</div>}
-      {!snapshot.loading && instances.length === 0 && (
+      {!listHidden && !snapshot.loading && instances.length === 0 && (
         <div className="dsh-better-workbench-sidebar-empty">{normalizedQuery === '' ? '从首页创建实例。' : '无匹配工作台'}</div>
       )}
       {websiteTarget && websiteInstance && <WebsiteSettings key={websiteTarget.id} open instance={websiteInstance} onClose={() => setWebsiteTarget(null)} updateConfig={(patch, revision) => service.updateInstanceConfig(websiteTarget.id, patch, revision, websiteTarget.generation)} />}

@@ -10,6 +10,7 @@ import { websiteApp, websiteTemplate } from './website-app.tsx'
 import { WEBSITE_VIEW_STYLE } from './website-view-styles.ts'
 import { CREATION_STYLE } from './creation-styles.ts'
 import { registerWorkbenchReference } from './workbench-reference.ts'
+import { bindPanelNavigation } from './panel-navigation.ts'
 import type { WorkbenchService } from './types.ts'
 
 export type * from './types.ts'
@@ -70,6 +71,9 @@ export function apply(ctx: ClientContext): void {
   }, 'dsh-better-workbench: unsaved changes warning')
   ctx.inject(['inputTriggers'], scope => {
     scope.effect(() => registerWorkbenchReference(scope, service), 'dsh-better-workbench: @ reference source')
+  })
+  ctx.inject(['layout'], scope => {
+    scope.effect(() => bindPanelNavigation(service, scope.get('layout')), 'dsh-better-workbench: global panel navigation')
   })
   ctx.effect(() => service.registerApp(websiteApp()), 'dsh-better-workbench: webpage application')
   ctx.effect(() => service.registerTemplate(websiteTemplate()), 'dsh-better-workbench: webpage template')

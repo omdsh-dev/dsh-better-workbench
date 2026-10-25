@@ -90,7 +90,7 @@
     "check": "tsc -p tsconfig.json --noEmit --pretty false",
     "check:example": "pnpm --dir examples/design-board run check",
     "check:example:panels": "pnpm --dir examples/skill-mcp-panels run check",
-    "test": "node --test tests/service.mjs tests/storage.mjs tests/dom-adapter.mjs tests/ui.mjs tests/website.mjs tests/workbench-reference.mjs tests/build.mjs tests/starter-build.mjs",
+    "test": "node --test tests/service.mjs tests/storage.mjs tests/dom-adapter.mjs tests/panel-navigation.mjs tests/ui.mjs tests/website.mjs tests/workbench-reference.mjs tests/build.mjs tests/starter-build.mjs",
     "verify:i18n": "node scripts/verify-i18n.mjs"
   },
   "dsh": {
