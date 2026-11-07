@@ -1,12 +1,5 @@
 import { useId, useState, type ReactNode } from 'react'
-import {
-  Button,
-  CodeBlock,
-  Tooltip,
-  IconCopyOutlineRegular,
-  IconCodeOutlineRegular,
-  writeClipboard,
-} from '@deepseek-ai/dsh-client-ui-primitives'
+import { Button, CodeBlock, Tooltip, IconCopyOutlineRegular, IconCodeOutlineRegular, writeClipboard } from '@deepseek-ai/dsh-client-ui-primitives'
 
 export type Notice = (text: string, error?: boolean) => void
 

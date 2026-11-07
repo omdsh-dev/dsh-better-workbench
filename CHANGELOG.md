@@ -8,6 +8,10 @@ All notable user-facing changes to dsh-better-workbench and its bundled examples
 
 - Re-align the Workbench sidebar with DSH Web 0.2.2's sidebar geometry: consume `--dsh-sidebar-row-padding`, `--dsh-sidebar-label-gap` and `--dsh-sidebar-paint-inset` (with pre-0.2.2 fallbacks), so the section heading, row icons and labels sit on the same x-axis as the workspace/session list.
 
+### Changed
+
+- Support `@deepseek-ai/dsh-client-ui-primitives` 0.2.1-alpha.2 while keeping 0.1.5-alpha.2 in the peer range: move the host surfaces and the design board to the size-neutral `Icon*Regular` exports, stop passing the obsolete explicit sizes, and follow the 0.2.1 label contracts (`TerminalBlock` `commandLine`, `DiffBlock` fold labels).
+
 ## [0.4.0] - 2026-09-22
 
 ### Added

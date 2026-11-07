@@ -113,7 +113,7 @@ export function WorkbenchCreateDialog({ service, snapshot }: { service: Workbenc
   return <Modal open title={draft ? draft.choice.title : '创建工作台'} closeLabel="关闭" onClose={close}
     className="dsh-better-workbench-create-dialog" contentClassName="dsh-better-workbench-create-content"
     footer={<>
-      {draft && <Tooltip label="返回模板"><button type="button" className="dsh-better-workbench-frame-button" aria-label="返回模板" disabled={busy} onClick={() => { setDraft(null); setError(null); setHandoff(null) }}><IconChevronLeftOutlineRegular size={14} /></button></Tooltip>}
+      {draft && <Tooltip label="返回模板"><button type="button" className="dsh-better-workbench-frame-button" aria-label="返回模板" disabled={busy} onClick={() => { setDraft(null); setError(null); setHandoff(null) }}><IconChevronLeftOutlineRegular /></button></Tooltip>}
       <span className="dsh-better-workbench-create-spacer" />
       {snapshot.creation.status === 'creating' ? <Button variant="outline" onClick={cancelWaiting}>取消等待</Button> : <Button variant="outline" disabled={busy} onClick={close}>{handoff ? '完成' : '取消'}</Button>}
       {draft && !handoff && <Button variant="primary" disabled={busy || !isCurrent || (draft.app !== undefined && (!draft.title.trim() || validation !== null))} onClick={() => { void submit() }} icon={pending ? <IconLoadingOutlineRegular /> : undefined}>{pending ? '正在创建...' : draft.app ? '创建并打开' : '开始创建'}</Button>}
@@ -128,7 +128,7 @@ export function WorkbenchCreateDialog({ service, snapshot }: { service: Workbenc
             {app?.renderIcon ? <WorkbenchAppIcon renderer={app.renderIcon} instance={existing} className="dsh-better-workbench-create-choice-icon" /> : <IconPersonalizationOutlineRegular />}
             <span className="dsh-better-workbench-create-choice-label">{choice.title}</span>
             <span className="dsh-better-workbench-create-choice-kind">{!choice.available ? '暂不可用' : existing ? '打开已有' : choice.template?.kind === 'agent' ? 'Agent' : choice.template ? '模板' : '应用'}</span>
-            <IconChevronRightOutlineRegular size={14} />
+            <IconChevronRightOutlineRegular />
           </button>
         })}
       </div>

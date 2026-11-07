@@ -53,7 +53,7 @@ export function WebsiteCreate({ config, disabled, onChange }: WorkbenchCreatePro
           anchor={<Button type="button" variant="ghost" size="sm" className="dsh-better-workbench-create-select"
             aria-label="打开方式" aria-haspopup="menu" aria-expanded={modeOpen && !disabled} disabled={disabled}
             onClick={() => setModeOpen(value => !value)}>
-            <span>{external ? '浏览器新标签页' : '工作台内'}</span><IconChevronDownOutlineRegular size={14} />
+            <span>{external ? '浏览器新标签页' : '工作台内'}</span><IconChevronDownOutlineRegular />
           </Button>} />
       </div>
       {!external && <div className="dsh-better-workbench-create-setting-row dsh-better-workbench-create-trust">

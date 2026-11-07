@@ -1,14 +1,6 @@
 import { useId, useState, type ButtonHTMLAttributes, type ComponentType, type ReactNode } from 'react'
 import * as Primitives from '@deepseek-ai/dsh-client-ui-primitives'
-import {
-  Button,
-  Input,
-  Pill,
-  Tooltip,
-  IconCopyOutlineRegular,
-  IconBrowseOutlineRegular,
-  IconPlusOutlineRegular,
-} from '@deepseek-ai/dsh-client-ui-primitives'
+import { Button, Input, Pill, Tooltip, IconCopyOutlineRegular, IconBrowseOutlineRegular, IconPlusOutlineRegular } from '@deepseek-ai/dsh-client-ui-primitives'
 import { Specimen, type Notice } from './GallerySpecimen.js'
 
 // Optional exports keep the board usable on older hosts without cloning their UI.
@@ -25,10 +17,7 @@ export function PresetCardSpecimen({ notify }: { notify: Notice }) {
   ]
   const footer = (title: string) => <><Tooltip label={'查看 ' + title}><span><Button size="sm" aria-label={'查看 ' + title} onClick={() => notify(title + ' · 查看示例')}><IconBrowseOutlineRegular /></Button></span></Tooltip><Tooltip label={'复制 ' + title}><span><Button size="sm" aria-label={'复制 ' + title} onClick={() => notify(title + ' · 复制示例')}><IconCopyOutlineRegular /></Button></span></Tooltip></>
   return <Specimen title="实体选择卡片" name="SelectableCard" metrics={['AgentPresetSection', '主区选择 / 底部独立操作', 'pressed / disabled / broken', 'r20 · 原生规格']} notify={notify}
-    sample={`import {
-  SelectableCard,
-  Button,
-} from "@deepseek-ai/dsh-client-ui-primitives"
+    sample={`import { SelectableCard, Button } from "@deepseek-ai/dsh-client-ui-primitives"
 
 <SelectableCard title={name} description={description} metadata={id}
   pressed={isDefault} disabled={isDefault} broken={Boolean(error)}

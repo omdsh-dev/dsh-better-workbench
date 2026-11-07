@@ -374,10 +374,7 @@ window.__ModuleLoader__.load({
 					"r20 · 原生规格"
 				],
 				notify,
-				sample: `import {
-  SelectableCard,
-  Button,
-} from "@deepseek-ai/dsh-client-ui-primitives"
+				sample: `import { SelectableCard, Button } from "@deepseek-ai/dsh-client-ui-primitives"
 
 <SelectableCard title={name} description={description} metadata={id}
   pressed={isDefault} disabled={isDefault} broken={Boolean(error)}
@@ -600,6 +597,9 @@ window.__ModuleLoader__.load({
 			["error", "失败"]
 		];
 		const FOLD_LABELS = {
+			codeLabel: "代码",
+			wrapLabel: "自动换行",
+			unwrapLabel: "取消换行",
 			copy: "复制",
 			copied: "已复制",
 			collapse: "收起",
@@ -611,6 +611,7 @@ window.__ModuleLoader__.load({
 			...FOLD_LABELS,
 			signal: (signal) => "信号 " + signal,
 			exitCode: (code) => "退出码 " + code,
+			commandLine: (line) => "第 " + line + " 行命令",
 			noExitCode: "无退出码",
 			running: "运行中",
 			failed: "失败",
@@ -959,7 +960,7 @@ window.__ModuleLoader__.load({
 							"aria-haspopup": "menu",
 							"aria-expanded": open === key,
 							onClick: () => setOpen((value) => value === key ? null : key),
-							children: ["项目操作", /* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, { size: 14 })]
+							children: ["项目操作", /* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, {})]
 						}),
 						onSelect: (id) => {
 							setSelection(id);
@@ -1328,7 +1329,7 @@ window.__ModuleLoader__.load({
 								maxLines: 6,
 								totalLines: 12,
 								lines: [
-									"import {Button} from \"@deepseek-ai/dsh-client-ui-primitives\"",
+									"import { Button } from \"@deepseek-ai/dsh-client-ui-primitives\"",
 									"",
 									"export function Actions() {",
 									"  return (",
@@ -1359,10 +1360,7 @@ window.__ModuleLoader__.load({
 									oldText: "<Button variant=\"ghost\">保存</Button>",
 									newText: "<Button variant=\"primary\">保存</Button>"
 								}],
-								labels: {
-									...FOLD_LABELS,
-									files: (count) => count + " 个文件"
-								}
+								labels: FOLD_LABELS
 							})]
 						}),
 						/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
@@ -2750,6 +2748,13 @@ window.__ModuleLoader__.load({
 						usage: "导航、工作区、设置和浮层动作"
 					},
 					{
+						label: "设置（紧凑）",
+						name: "IconSettingsOutlineRegular",
+						icon: _deepseek_ai_dsh_client_ui_primitives.IconSettingsOutlineRegular,
+						size: 14,
+						usage: "导航、工作区、设置和浮层动作"
+					},
+					{
 						label: "设置",
 						name: "IconSettingsOutlineRegular",
 						icon: _deepseek_ai_dsh_client_ui_primitives.IconSettingsOutlineRegular,
@@ -2761,6 +2766,13 @@ window.__ModuleLoader__.load({
 						name: "IconCheckOutlineRegular",
 						icon: _deepseek_ai_dsh_client_ui_primitives.IconCheckOutlineRegular,
 						size: 16,
+						usage: "导航、工作区、设置和浮层动作"
+					},
+					{
+						label: "完成（紧凑）",
+						name: "IconCheckOutlineRegular",
+						icon: _deepseek_ai_dsh_client_ui_primitives.IconCheckOutlineRegular,
+						size: 14,
 						usage: "导航、工作区、设置和浮层动作"
 					},
 					{
@@ -2827,6 +2839,13 @@ window.__ModuleLoader__.load({
 						usage: "导航、工作区、设置和浮层动作"
 					},
 					{
+						label: "刷新（紧凑）",
+						name: "IconRefreshOutlineRegular",
+						icon: _deepseek_ai_dsh_client_ui_primitives.IconRefreshOutlineRegular,
+						size: 14,
+						usage: "导航、工作区、设置和浮层动作"
+					},
+					{
 						label: "分享",
 						name: "IconShareOutlineRegular",
 						icon: _deepseek_ai_dsh_client_ui_primitives.IconShareOutlineRegular,
@@ -2848,10 +2867,24 @@ window.__ModuleLoader__.load({
 						usage: "导航、工作区、设置和浮层动作"
 					},
 					{
+						label: "链接（紧凑）",
+						name: "IconLinkOutlineRegular",
+						icon: _deepseek_ai_dsh_client_ui_primitives.IconLinkOutlineRegular,
+						size: 14,
+						usage: "导航、工作区、设置和浮层动作"
+					},
+					{
 						label: "链接",
 						name: "IconLinkOutlineRegular",
 						icon: _deepseek_ai_dsh_client_ui_primitives.IconLinkOutlineRegular,
 						size: 16,
+						usage: "导航、工作区、设置和浮层动作"
+					},
+					{
+						label: "外部链接（紧凑）",
+						name: "IconRightUpOutlineRegular",
+						icon: _deepseek_ai_dsh_client_ui_primitives.IconRightUpOutlineRegular,
+						size: 14,
 						usage: "导航、工作区、设置和浮层动作"
 					},
 					{
@@ -2916,6 +2949,13 @@ window.__ModuleLoader__.load({
 						usage: "Composer 发送消息"
 					},
 					{
+						label: "发送（紧凑）",
+						name: "IconSendOutlineRegular",
+						icon: _deepseek_ai_dsh_client_ui_primitives.IconSendOutlineRegular,
+						size: 14,
+						usage: "对话流、Composer 和反馈动作"
+					},
+					{
 						label: "复制",
 						name: "IconCopyOutlineRegular",
 						icon: _deepseek_ai_dsh_client_ui_primitives.IconCopyOutlineRegular,
@@ -2952,6 +2992,13 @@ window.__ModuleLoader__.load({
 					},
 					{
 						label: "思考",
+						name: "IconThinkOutlineRegular",
+						icon: _deepseek_ai_dsh_client_ui_primitives.IconThinkOutlineRegular,
+						size: 14,
+						usage: "思考状态的紧凑 leading icon"
+					},
+					{
+						label: "思考（16px）",
 						name: "IconThinkOutlineRegular",
 						icon: _deepseek_ai_dsh_client_ui_primitives.IconThinkOutlineRegular,
 						size: 16,
@@ -3843,7 +3890,7 @@ window.__ModuleLoader__.load({
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "品牌、收起、新会话、工作台、工作区、会话树和设置入口。" })
 								] }),
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconSettingsOutlineRegular, { size: 14 }),
+									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconSettingsOutlineRegular, {}),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "设置弹窗" }),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "通用、模型、插件和 Agent 预设；每项配置拥有独立状态。" })
 								] }),
@@ -3884,12 +3931,12 @@ window.__ModuleLoader__.load({
 							className: "dsh-board-callouts",
 							children: [
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCheckOutlineRegular, { size: 14 }),
+									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCheckOutlineRegular, {}),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "同一角色，同一变体" }),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "添加工作台与添加工作区都是标题栏添加按钮，统一为 28×28 的圆形图标按钮，并共享全部交互状态。" })
 								] }),
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconInspectOutlineRegular, { size: 12 }),
+									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconInspectOutlineRegular, {}),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "差异必须有语义" }),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "只有功能或约束确实不同，才选择另一个已命名变体；例如 28px 标题栏按钮与 36px rail 按钮。" })
 								] }),
@@ -4172,7 +4219,7 @@ window.__ModuleLoader__.load({
 								}),
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 									className: "dsh-shell-overlay",
-									children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconInspectOutlineRegular, { size: 12 }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "全局浮层 · z20 · 根层不拦截点击" })]
+									children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconInspectOutlineRegular, {}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "全局浮层 · z20 · 根层不拦截点击" })]
 								})
 							]
 						})]
@@ -4196,7 +4243,7 @@ window.__ModuleLoader__.load({
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "1024px 以下自动收起；保留品牌、新会话、工作区和设置入口。" })
 								] }),
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconInspectOutlineRegular, { size: 12 }),
+									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconInspectOutlineRegular, {}),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "详情关闭 / 打开" }),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "关闭为 0；重新打开 360px，再在 300–520px 内拖拽。" })
 								] }),
@@ -4255,7 +4302,7 @@ window.__ModuleLoader__.load({
 									/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 										className: "dsh-chat-context-row",
 										children: [
-											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconInspectOutlineRegular, { size: 12 }),
+											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconInspectOutlineRegular, {}),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "已压缩 409 条历史记录" }),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("i", {}),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("small", { children: "展开查看摘要" })
@@ -4295,11 +4342,11 @@ window.__ModuleLoader__.load({
 										className: "dsh-chat-reasoning",
 										"data-running": "true",
 										children: [
-											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconThinkOutlineRegular, { size: 14 }),
+											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconThinkOutlineRegular, {}),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "思考中" }),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("i", {}),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "正在整理模块之间的关系" }),
-											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, { size: 14 })
+											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, {})
 										]
 									}),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
@@ -4309,7 +4356,7 @@ window.__ModuleLoader__.load({
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "读取" }),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("i", {}),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "ui-conversation/chat/ChatView.tsx" }),
-											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, { size: 14 })
+											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, {})
 										]
 									}),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
@@ -4352,7 +4399,7 @@ window.__ModuleLoader__.load({
 								type: "button",
 								className: "dsh-chat-to-bottom",
 								"aria-label": "回到最新消息",
-								children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, { size: 14 })
+								children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, {})
 							})]
 						})]
 					}),
@@ -4450,7 +4497,7 @@ window.__ModuleLoader__.load({
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 									className: "dsh-sidebar-workbench",
 									children: [
-										/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCordisPluginOutlineRegular, { size: 14 }),
+										/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCordisPluginOutlineRegular, {}),
 										/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "DSH UI 样式看板" }),
 										/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconEllipsisOutlineRegular, {})
 									]
@@ -4605,7 +4652,7 @@ window.__ModuleLoader__.load({
 												children: [
 													/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { className: "dsh-session-running-dot" }),
 													/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "8 个子代理" }),
-													/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, { size: 14 })
+													/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, {})
 												]
 											}),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("button", {
@@ -4615,7 +4662,7 @@ window.__ModuleLoader__.load({
 												children: [
 													/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { className: "dsh-session-running-dot" }),
 													/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "2" }),
-													/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, { size: 14 })
+													/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, {})
 												]
 											})
 										]
@@ -4660,17 +4707,17 @@ window.__ModuleLoader__.load({
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "当前会话显示预设；新会话页面才允许选择。" })
 								] }),
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, { size: 14 }),
+									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, {}),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "子代理目录" }),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "状态点、数量和 disclosure；有子代理或加载态才出现。" })
 								] }),
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, { size: 14 }),
+									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, {}),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "后台任务" }),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "有任务才出现；触发后展示按状态排序的任务清单。" })
 								] }),
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCordisPluginOutlineRegular, { size: 14 }),
+									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCordisPluginOutlineRegular, {}),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "插件贡献" }),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "Session 日志、分享等独立挂载，未注册时标题栏不预留位置。" })
 								] })
@@ -4719,7 +4766,7 @@ window.__ModuleLoader__.load({
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconListPenOutlineRegular, {}),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "任务" }),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "1 进行中 · 5 待处理" }),
-											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, { size: 14 })
+											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, {})
 										] }),
 										/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconGoalOutlineRegular, {}),
@@ -4735,7 +4782,7 @@ window.__ModuleLoader__.load({
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconLoadingOutlineRegular, {}),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "队列" }),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "2 条待发送消息" }),
-											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, { size: 14 })
+											/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, {})
 										] })
 									]
 								}),
@@ -4751,7 +4798,7 @@ window.__ModuleLoader__.load({
 											children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCodeOutlineRegular, {}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 												type: "button",
 												"aria-label": "移除附件",
-												children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCloseFillRegular, { size: 14 })
+												children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCloseFillRegular, {})
 											})] }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "附件 rail 位于文本层之前" })]
 										}),
 										/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
@@ -4819,7 +4866,7 @@ window.__ModuleLoader__.load({
 														type: "button",
 														className: "dsh-composer-real-send",
 														"aria-label": "发送",
-														children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconSendOutlineRegular, { size: 14 })
+														children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconSendOutlineRegular, {})
 													})
 												]
 											})]
@@ -4903,11 +4950,11 @@ window.__ModuleLoader__.load({
 										}),
 										/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("button", {
 											type: "button",
-											children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, { size: 14 }), "Turns"]
+											children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, {}), "Turns"]
 										}),
 										/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("button", {
 											type: "button",
-											children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, { size: 14 }), "Calls"]
+											children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconChevronDownOutlineRegular, {}), "Calls"]
 										}),
 										/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("label", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconSearchOutlineRegular, {}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
 											"aria-label": "搜索轨迹",
@@ -5031,7 +5078,7 @@ window.__ModuleLoader__.load({
 											/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("header", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "Record #135" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 												type: "button",
 												"aria-label": "关闭记录检查器",
-												children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCloseFillRegular, { size: 14 })
+												children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCloseFillRegular, {})
 											})] }),
 											/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("nav", { children: [
 												/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
@@ -5321,7 +5368,7 @@ window.__ModuleLoader__.load({
 									/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("button", {
 										type: "button",
 										"data-active": "true",
-										children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconSettingsOutlineRegular, { size: 14 }), "通用"]
+										children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconSettingsOutlineRegular, {}), "通用"]
 									}),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("button", {
 										type: "button",
@@ -5341,7 +5388,7 @@ window.__ModuleLoader__.load({
 								children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("header", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "通用" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 									type: "button",
 									"aria-label": "关闭设置",
-									children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCloseFillRegular, { size: 14 })
+									children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCloseFillRegular, {})
 								})] }), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 									className: "dsh-module-settings-options",
 									children: [
@@ -5385,7 +5432,7 @@ window.__ModuleLoader__.load({
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("code", { children: "ui-settings-models/ModelsSection" })
 								] }),
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCordisPluginOutlineRegular, { size: 14 }),
+									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCordisPluginOutlineRegular, {}),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "插件设置" }),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "页签 · 已访问面板 · 暂存字段 · 未保存标记 · 保存/放弃底栏" }),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("code", { children: "ui-settings-plugins/PluginCard + fields" })
@@ -5397,7 +5444,7 @@ window.__ModuleLoader__.load({
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("code", { children: "feature-owned CSS" })
 								] }),
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconInspectOutlineRegular, { size: 12 }),
+									/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconInspectOutlineRegular, {}),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "Data logic" }),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "schema-form only rehydrates and sets values; it does not render fields" }),
 									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("code", { children: "schema-form/model.ts" })
@@ -5543,7 +5590,7 @@ window.__ModuleLoader__.load({
 						}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
 							className: "dsh-a11y-checklist",
 							children: A11Y_CHECKS.map(([title, detail, failure]) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCheckOutlineRegular, { size: 14 }),
+								/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCheckOutlineRegular, {}),
 								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: title }),
 								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: detail }),
 								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("small", { children: failure })
@@ -5573,7 +5620,7 @@ window.__ModuleLoader__.load({
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 									className: "dsh-running-thinking",
 									children: [
-										/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconThinkOutlineRegular, { size: 14 }),
+										/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconThinkOutlineRegular, {}),
 										/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", {
 											className: "dsh-running-shimmer",
 											children: "深度求索中..."
@@ -5584,7 +5631,7 @@ window.__ModuleLoader__.load({
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 									className: "dsh-running-reasoning",
 									children: [
-										/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconThinkOutlineRegular, { size: 14 }),
+										/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconThinkOutlineRegular, {}),
 										/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "思考中" }),
 										/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "ReasoningRow：300px sweep · 2.6s" })
 									]
@@ -5694,9 +5741,9 @@ window.__ModuleLoader__.load({
 						}), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 							className: "dsh-checklist",
 							children: [
-								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCheckOutlineRegular, { size: 14 }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "尺寸与 owner 源码一致" })] }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCheckOutlineRegular, { size: 14 }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "暗色主题使用 semantic alias" })] }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCheckOutlineRegular, { size: 14 }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "焦点、禁用、错误可识别" })] }),
+								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCheckOutlineRegular, {}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "尺寸与 owner 源码一致" })] }),
+								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCheckOutlineRegular, {}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "暗色主题使用 semantic alias" })] }),
+								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconCheckOutlineRegular, {}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "焦点、禁用、错误可识别" })] }),
 								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)(_deepseek_ai_dsh_client_ui_primitives.IconWarningOutlineRegular, {}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "局部 literal 颜色已登记为 exception" })] })
 							]
 						})]

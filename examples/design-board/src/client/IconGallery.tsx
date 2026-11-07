@@ -1,11 +1,5 @@
 import { useState, type ComponentType } from 'react'
-import {
-  Button,
-  Input,
-  IconSearchOutlineRegular,
-  IconCopyOutlineRegular,
-  IconCheckOutlineRegular,
-} from '@deepseek-ai/dsh-client-ui-primitives'
+import { Button, Input, IconSearchOutlineRegular, IconCopyOutlineRegular, IconCheckOutlineRegular } from '@deepseek-ai/dsh-client-ui-primitives'
 import { ICON_GALLERY_STYLE } from './icon-gallery-styles.js'
 
 type IconItem = { label: string; name: string; icon: ComponentType<{ size?: number; className?: string }>; size: number; usage: string }

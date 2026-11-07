@@ -551,7 +551,7 @@ export function WorkbenchSidebar({ service }: WorkbenchSidebarProps): JSX.Elemen
                   setSearchExpanded(false)
                 }}
               >
-                <IconCloseFillRegular size={14} />
+                <IconCloseFillRegular />
               </button>
             )}
           </div>

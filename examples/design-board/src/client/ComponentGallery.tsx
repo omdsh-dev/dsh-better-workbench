@@ -4,37 +4,12 @@ import * as Primitives from '@deepseek-ai/dsh-client-ui-primitives'
 import { Specimen, IconAction } from './GallerySpecimen.js'
 import { CollectionActionSpecimen, PresetCardSpecimen } from './NativeSpecimens.js'
 import {
-  Button,
-  CodeBlock,
-  ConnectionIndicator,
-  DiffBlock,
-  DisclosureRow,
-  HoverCard,
-  Input,
-  JsonTree,
-  Menu,
-  Modal,
-  Pill,
-  ReadBlock,
-  RiskConfirmation,
-  StateDot,
-  TerminalBlock,
-  Toast,
-  Tooltip,
-  IconCheckOutlineRegular,
-  IconChevronDownOutlineRegular,
-  IconCodeOutlineRegular,
-  IconCopyOutlineRegular,
-  IconEditOutlineRegular,
-  IconEllipsisOutlineRegular,
-  IconFolderOpenRegular,
-  IconLoadingOutlineRegular,
-  IconPlusOutlineRegular,
-  IconRefreshOutlineRegular,
-  IconSearchOutlineRegular,
-  IconTrashOutlineRegular,
-  IconWarningOutlineRegular,
-  writeClipboard,
+  Button, CodeBlock, ConnectionIndicator, DiffBlock, DisclosureRow, HoverCard, Input,
+  JsonTree, Menu, Modal, Pill, ReadBlock, RiskConfirmation, StateDot, TerminalBlock, Toast, Tooltip,
+  IconCheckOutlineRegular, IconChevronDownOutlineRegular, IconCodeOutlineRegular, IconCopyOutlineRegular,
+  IconEditOutlineRegular, IconEllipsisOutlineRegular, IconFolderOpenRegular, IconLoadingOutlineRegular,
+  IconPlusOutlineRegular, IconRefreshOutlineRegular, IconSearchOutlineRegular, IconTrashOutlineRegular,
+  IconWarningOutlineRegular, writeClipboard,
 } from '@deepseek-ai/dsh-client-ui-primitives'
 import type {
   ButtonVariant, ConnectionIndicatorState, JsonTreeLabels, MenuEntry, StateDotState, TerminalBlockLabels,
@@ -51,13 +26,15 @@ const STATES: readonly [StateDotState, string][] = [
   ['done', '已完成'], ['warning', '待确认'], ['ongoing', '进行中'], ['error', '失败'],
 ]
 const FOLD_LABELS = {
+  codeLabel: '代码', wrapLabel: '自动换行', unwrapLabel: '取消换行',
   copy: '复制', copied: '已复制', collapse: '收起', collapseAria: '收起内容',
   expand: (count: number) => '展开 ' + count + ' 行',
   expandAria: (count: number) => '展开隐藏的 ' + count + ' 行',
 }
 const TERMINAL_LABELS: TerminalBlockLabels = {
   ...FOLD_LABELS, signal: signal => '信号 ' + signal, exitCode: code => '退出码 ' + code,
-  noExitCode: '无退出码', running: '运行中', failed: '失败', done: '已完成', noOutput: '无输出',
+  commandLine: line => '第 ' + line + ' 行命令', noExitCode: '无退出码',
+  running: '运行中', failed: '失败', done: '已完成', noOutput: '无输出',
 }
 const JSON_LABELS: JsonTreeLabels = {
   copyValue: '复制值', copyJson: '复制 JSON', copyPath: '复制属性路径',
@@ -145,7 +122,7 @@ function MenuSpecimen({ notify }: { notify: Notice }) {
   return <Specimen name="Menu" title="操作菜单" metrics={['portal', 'label / separator / danger', 'selectedId / disabled / submenu']} notify={notify}
     sample={'<Menu open={open} portal selectedId={selectedId} items={items}\n  anchor={<Button aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen(!open)}>项目操作</Button>}\n  onSelect={id => { setSelectedId(id); setOpen(false) }} onClose={() => setOpen(false)} />'}>
     <div className="dsh-cg-inline-samples">{choices.map(([key, label]) => <div key={key}><small>{label}</small><Menu open={open === key} portal dense={key === 'dense'} compact={key === 'compact'} items={MENU_ITEMS} selectedId={selection}
-      anchor={<Button variant="outline" icon={<IconEllipsisOutlineRegular />} aria-haspopup="menu" aria-expanded={open === key} onClick={() => setOpen(value => value === key ? null : key)}>项目操作<IconChevronDownOutlineRegular size={14} /></Button>}
+      anchor={<Button variant="outline" icon={<IconEllipsisOutlineRegular />} aria-haspopup="menu" aria-expanded={open === key} onClick={() => setOpen(value => value === key ? null : key)}>项目操作<IconChevronDownOutlineRegular /></Button>}
       onSelect={id => { setSelection(id); setResult(id); setOpen(null); notify('已选择：' + id) }} onClose={() => setOpen(null)} /></div>)}
     </div><output className="dsh-cg-result">onSelect <code>{result}</code></output>
   </Specimen>
@@ -240,8 +217,8 @@ function ContentSpecimen({ notify }: { notify: Notice }) {
     sample={'<TerminalBlock command="pnpm check" output={output} exitCode={0} maxLines={6} labels={labels} />\n<ReadBlock label="Button.tsx" lines={lines} totalLines={12} lang="tsx" labels={labels} />\n<JsonTree data={data} label="项目配置" labels={jsonLabels} />'}>
     <div className="dsh-cg-two-col dsh-cg-content-grid">
       <div className="dsh-cg-subsection"><h3>TerminalBlock</h3><div className="dsh-cg-options" role="group" aria-label="终端状态">{(['done', 'running', 'error', 'empty'] as const).map((value, index) => <Pill key={value} active={terminalState === value} aria-pressed={terminalState === value} onClick={() => setTerminalState(value)}>{['完成', '运行中', '失败', '无输出'][index]}</Pill>)}</div><TerminalBlock command="pnpm check" cwd="/workspace/design-system" output={output} running={terminalState === 'running'} exitCode={terminalState === 'error' ? 1 : 0} maxLines={6} labels={TERMINAL_LABELS} /></div>
-      <div className="dsh-cg-subsection"><h3>ReadBlock</h3><ReadBlock label="src/actions.tsx" lang="tsx" maxLines={6} totalLines={12} lines={['import {Button} from "@deepseek-ai/dsh-client-ui-primitives"', '', 'export function Actions() {', '  return (', '    <Button', '      variant="primary"', '      size="sm"', '      onClick={save}', '    >', '      保存', '    </Button>', '  )}'].map((text, index) => ({ number: index + 1, text }))} labels={{ ...FOLD_LABELS, window: (shown, total) => shown + ' / ' + total + ' 行' }} /></div>
-      <div className="dsh-cg-subsection"><h3>DiffBlock</h3><DiffBlock maxLines={6} diffs={[{ path: 'src/actions.tsx', oldText: '<Button variant="ghost">保存</Button>', newText: '<Button variant="primary">保存</Button>' }]} labels={{ ...FOLD_LABELS, files: count => count + ' 个文件' }} /></div>
+      <div className="dsh-cg-subsection"><h3>ReadBlock</h3><ReadBlock label="src/actions.tsx" lang="tsx" maxLines={6} totalLines={12} lines={['import { Button } from "@deepseek-ai/dsh-client-ui-primitives"', '', 'export function Actions() {', '  return (', '    <Button', '      variant="primary"', '      size="sm"', '      onClick={save}', '    >', '      保存', '    </Button>', '  )}'].map((text, index) => ({ number: index + 1, text }))} labels={{ ...FOLD_LABELS, window: (shown, total) => shown + ' / ' + total + ' 行' }} /></div>
+      <div className="dsh-cg-subsection"><h3>DiffBlock</h3><DiffBlock maxLines={6} diffs={[{ path: 'src/actions.tsx', oldText: '<Button variant="ghost">保存</Button>', newText: '<Button variant="primary">保存</Button>' }]} labels={FOLD_LABELS} /></div>
       <div className="dsh-cg-subsection"><h3>JsonTree</h3><JsonTree label="项目配置" data={{ project: 'Design system', theme: { mode: 'system', density: 'compact' }, components: ['Button', 'Input', 'Menu'], published: false, revision: 12 }} labels={JSON_LABELS} /></div>
     </div>
   </Specimen>
