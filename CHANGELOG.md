@@ -4,6 +4,10 @@ All notable user-facing changes to dsh-better-workbench and its bundled examples
 
 ## [Unreleased]
 
+### Fixed
+
+- Re-align the Workbench sidebar with DSH Web 0.2.2's sidebar geometry: consume `--dsh-sidebar-row-padding`, `--dsh-sidebar-label-gap` and `--dsh-sidebar-paint-inset` (with pre-0.2.2 fallbacks), so the section heading, row icons and labels sit on the same x-axis as the workspace/session list.
+
 ## [0.4.0] - 2026-09-22
 
 ### Added

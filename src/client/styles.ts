@@ -21,7 +21,8 @@ export const WORKBENCH_STYLE = `
   justify-content: flex-end;
   gap: 4px;
   height: 36px;
-  padding-left: 4px;
+  padding-left: var(--dsh-sidebar-row-padding, 4px);
+  padding-right: 1px;
   margin: 2px -4px 4px 0;
   border-radius: 12px;
   overflow: hidden;
@@ -31,6 +32,8 @@ export const WORKBENCH_STYLE = `
   line-height: 20px;
 }
 .dsh-better-workbench-sidebar-heading-label {
+  position: relative;
+  left: -1px;
   flex: none;
   max-width: 45%;
   min-width: 0;
@@ -207,8 +210,12 @@ export const WORKBENCH_STYLE = `
   gap: 0;
   min-width: 0;
   height: 32px;
+  box-sizing: border-box;
+  border-inline: var(--dsh-sidebar-paint-inset, 0px) solid transparent;
   border-radius: 8px;
   padding: 0 8px;
+  padding-inline-start: calc(var(--dsh-sidebar-row-padding, 8px) - var(--dsh-sidebar-paint-inset, 0px));
+  background-clip: padding-box;
   cursor: pointer;
   user-select: none;
   color: var(--dsw-alias-label-primary);
@@ -220,7 +227,7 @@ export const WORKBENCH_STYLE = `
 .dsh-better-workbench-sidebar-row:hover,
 .dsh-better-workbench-sidebar-row[data-active="true"],
 .dsh-better-workbench-sidebar-row[data-menu-open="true"] {
-  background: var(--dsw-alias-interactive-bg-hover);
+  background-color: var(--dsw-alias-interactive-bg-hover);
 }
 .dsh-better-workbench-sidebar-row[data-drop-position="before"]::before,
 .dsh-better-workbench-sidebar-row[data-drop-position="after"]::after {
@@ -236,7 +243,7 @@ export const WORKBENCH_STYLE = `
 .dsh-better-workbench-sidebar-row[data-drop-position="after"]::after { bottom: -1px; }
 .dsh-better-workbench-sidebar-home {
   width: 100%;
-  border: 0;
+  border-block: 0;
 }
 .dsh-better-workbench-sidebar-app-icon {
   flex: none;
@@ -244,7 +251,7 @@ export const WORKBENCH_STYLE = `
   place-items: center;
   width: 16px;
   height: 16px;
-  margin-right: 8px;
+  margin-right: var(--dsh-sidebar-label-gap, 6px);
   color: var(--dsw-alias-label-secondary);
 }
 .dsh-better-workbench-sidebar-app-icon > * { width: 16px; height: 16px; }
@@ -252,7 +259,7 @@ export const WORKBENCH_STYLE = `
   flex: none;
   width: 16px;
   height: 16px;
-  margin-right: 8px;
+  margin-right: var(--dsh-sidebar-label-gap, 6px);
   color: var(--dsw-alias-label-secondary);
 }
 .dsh-better-workbench-sidebar-row-label {
